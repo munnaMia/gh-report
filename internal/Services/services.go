@@ -42,4 +42,27 @@ func (g GhService) Fetch(userName string) ([]entity.Activity, error) {
 	return activity, nil
 }
 
+func (g GhService) Show(userData []entity.Activity) {
+	for _, act := range userData {
+		action := ""
 
+		switch act.Type {
+		case "PushEvent":
+			action = "Pushed commits to"
+		case "IssuesEvent":
+			action = "Opened an issue in"
+		case "IssueCommentEvent":
+			action = "Commented on an issue in"
+		case "PullRequestEvent":
+			action = "Opened a pull request in"
+		case "WatchEvent":
+			action = "Starred"
+		case "ForkEvent":
+			action = "Forked"
+		default:
+			action = act.Type // fallback
+		}
+
+		fmt.Printf("- %s %s\n", action, act.Repo.Name)
+	}
+}
