@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 
 	services "github.com/munnaMia/gh-report/internal/Services"
@@ -20,7 +19,7 @@ func main() {
 	switch os.Args[1] {
 	case "gh-report":
 		userData := utils.Must(service.Fetch(username))
-		fmt.Println(userData)
+		service.Show(userData)
 	default:
 		utils.PrintFatal("Usage: gh-report <github-username>")
 	}
